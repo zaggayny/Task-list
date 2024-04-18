@@ -31,21 +31,24 @@ window.addEventListener("load", function() {
 // función para agregar tarea al listado
 function agregarTareaAlListado(tarea) {
     var li = document.createElement("li");
-    li.textContent = tarea;
 
-    // btn eliminar
-    var btnEliminar = document.createElement("span");
-    btnEliminar.textContent = " x";
-    li.appendChild(btnEliminar);
+    // Crear un elemento de texto para la tarea
+    var tareaText = document.createElement("span");
+    tareaText.textContent = tarea;
 
-    btnEliminar.onclick = function() {
-        li.remove();
+    // Agregar el elemento de texto de la tarea al li
+    li.appendChild(tareaText);
+
+    // Agregar evento de clic derecho para eliminar la tarea
+    li.addEventListener("contextmenu", function(e) {
+        e.preventDefault(); // Prevenir el menú contextual
+        li.remove(); // Eliminar la tarea
         total--;
         cantidad.innerHTML = total;
 
         // Actualizar localStorage después de eliminar una tarea
         actualizarLocalStorage();
-    };
+    });
 
     listado.appendChild(li);
 }
